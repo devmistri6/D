@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+</head>
+<body>
+    <div id="flipbook" style="width: 800px; height: 600px;">
+        <div class="page">Page 1</div>
+        <div class="page">Page 2</div>
+        <div class="page">Page 3</div>
+        <div class="page">Page 4</div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pageFlip = new window.StPageFlip.PageFlip(document.getElementById('flipbook'), {
+                width: 400,
+                height: 600,
+                showCover: true
+            });
+            pageFlip.loadFromHTML(document.querySelectorAll('.page'));
+            console.log("Pages:", pageFlip.getPageCount());
+        });
+    </script>
+</body>
+</html>

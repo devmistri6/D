@@ -1,0 +1,532 @@
+/* CSS Variables - Will be updated by JavaScript */
+:root {
+    /* Colors */
+    --background-color-1: #ffafbd;
+    --background-color-2: #ffc3a0;
+    --button-color: #ff6b6b;
+    --button-hover: #ff8787;
+    --text-color: #ff4757;
+
+    /* Animations */
+    --float-duration: 15s;
+    --float-distance: 50px;
+    --bounce-speed: 0.5s;
+    --heart-explosion-size: 1.5;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, var(--background-color-1), var(--background-color-2));
+    font-family: 'Poppins', Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 90%;
+    max-width: 600px;
+    margin: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.floating-elements {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.heart, .bear {
+    position: absolute;
+    font-size: 2rem;
+    animation: float var(--float-duration) linear infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(100vh) translateX(0);
+    }
+    100% {
+        transform: translateY(-100px) translateX(var(--float-distance));
+    }
+}
+
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.cute-btn {
+    background: var(--button-color);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 30px;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
+    min-width: 120px;
+    min-height: 48px; /* Accessibility: minimum tap target size */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cute-btn:hover, .cute-btn:focus {
+    transform: scale(1.05);
+    background: var(--button-hover);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    outline: none;
+}
+
+.cute-btn:active {
+    transform: scale(0.95);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.secret-answer {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    opacity: 0.3;
+    transition: opacity 0.3s, transform 0.3s;
+    z-index: 10;
+}
+
+.secret-answer:hover, .secret-answer:focus-within {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.secret-answer .cute-btn.special {
+    font-size: 0.8rem;
+    padding: 8px 16px;
+    min-width: auto;
+    min-height: auto;
+    background: rgba(255, 255, 255, 0.5);
+    color: var(--text-color);
+    border: 1px dashed var(--text-color);
+}
+
+.love-meter {
+    width: 100%;
+    margin: 30px 0;
+}
+
+.slider {
+    width: 100%;
+    height: 15px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: #eee;
+    outline: none;
+    border-radius: 10px;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 30px;
+    height: 30px;
+    background: var(--button-color);
+    cursor: pointer;
+    border-radius: 50%;
+    border: 3px solid white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.slider::-moz-range-thumb {
+    width: 30px;
+    height: 30px;
+    background: var(--button-color);
+    cursor: pointer;
+    border-radius: 50%;
+    border: 3px solid white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+#loveValue {
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+#extraLove {
+    display: block;
+    margin-top: 10px;
+    font-weight: 600;
+    color: var(--text-color);
+    animation: bounce 0.5s infinite alternate;
+}
+
+@keyframes bounce {
+    from { transform: scale(1); }
+    to { transform: scale(1.1); }
+}
+
+h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3rem;
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+}
+
+.celebration-text {
+    font-size: 1.2rem;
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+#celebrationEmojis {
+    font-size: 2.5rem;
+    margin-top: 20px;
+}
+
+.music-controls {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+}
+
+.music-btn {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid var(--button-color);
+    color: var(--text-color);
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    backdrop-filter: blur(4px);
+}
+
+.share-container {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+.share-btn {
+    background: transparent;
+    border: 2px solid var(--button-color);
+    color: var(--text-color);
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.share-btn:hover {
+    background: var(--button-color);
+    color: white;
+}
+
+/* Screen reader only */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 480px) {
+    h1 { font-size: 2.2rem; }
+    h2 { font-size: 1.2rem; }
+    .container { padding: 1.5rem; }
+    .cute-btn { width: 100%; }
+    .music-controls { top: 10px; right: 10px; }
+    
+    /* Reduce animation density on mobile */
+    .heart:nth-child(even), .bear:nth-child(even) {
+        display: none;
+    }
+}
+
+/* Flipbook Player Styles */
+.container.celebrating {
+    max-width: 900px;
+    width: 95%;
+    transition: max-width 0.3s, width 0.3s;
+}
+
+.player-container {
+    background-color: #212121;
+    border-radius: 12px;
+    margin-top: 2rem;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.player-stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 60px;
+    min-height: 400px;
+    position: relative;
+    background-image: radial-gradient(circle at center, #3a3a3a 0%, #1a1a1a 100%);
+}
+
+.nav-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+
+.nav-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.prev-btn { left: 15px; }
+.next-btn { right: 15px; }
+
+.player-controls {
+    background: #111;
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+    color: #fff;
+    font-size: 0.95rem;
+    border-top: 1px solid #333;
+    letter-spacing: 2px;
+    font-weight: 600;
+}
+
+/* Book gallery styles (lightweight, CSS-only animations) */
+.book {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.book-inner {
+    width: 80%;
+    max-width: 800px;
+    height: 420px;
+    position: relative;
+    perspective: 1600px;
+}
+.book .page {
+    position: absolute;
+    top: 20px;
+    bottom: 20px;
+    width: 48%;
+    background: #f8f8f8;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+    overflow: hidden;
+    border-radius: 8px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.book .left { left: 0; transform-origin: left center; }
+.book .right { right: 0; transform-origin: right center; }
+
+/* Flipper sits above the right page and rotates around left edge to simulate page turn */
+.flipper {
+    position: absolute;
+    right: 0;
+    top: 20px;
+    bottom: 20px;
+    width: 48%;
+    transform-origin: left center;
+    transform-style: preserve-3d;
+    pointer-events: none;
+}
+.flip-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 8px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+}
+.flip-face.back { transform: rotateY(180deg); }
+
+/* When .flipping is applied, rotate the flipper to show back side */
+.flipper.flipping { transition: transform 700ms cubic-bezier(.2,.8,.2,1); transform: rotateY(-180deg); pointer-events: none; }
+.flipper.flipping.reverse { transform: rotateY(180deg); }
+
+/* Images within book pages */
+.book .page img.book-img, .flip-face img.book-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.book-controls { display:flex; align-items:center; gap:12px; }
+.book-controls .page-counter { color: #fff; font-weight:700; }
+
+@media (max-width: 600px) {
+    .book-inner { height: 300px; }
+    .book .page { top: 12px; bottom: 12px; }
+}
+
+/* Overlay nav button styles (positioned on book sides) */
+.overlay-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.45);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 30;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+}
+.overlay-btn:hover { background: rgba(0,0,0,0.6); }
+.overlay-btn.prev-btn { left: 8%; }
+.overlay-btn.next-btn { right: 8%; }
+
+@media (max-width: 600px) {
+    .overlay-btn { width:40px; height:40px; left:6%; right:6%; }
+}
+
+/* Footer controls should sit in the footer area, not overlay the book */
+.player-controls .nav-btn {
+    position: static;
+    transform: none;
+    width: auto;
+    height: auto;
+    border-radius: 6px;
+    background: transparent;
+    color: #fff;
+    box-shadow: none;
+}
+
+/* Original Flipbook Inner Styles */
+.flipbook-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    perspective: 1200px;
+}
+
+.flipbook {
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    /* For smaller screens, stPageFlip will scale */
+}
+
+.flipbook .page {
+    background-color: #fdfdfd;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+    border: 1px solid #ddd;
+    overflow: hidden;
+    position: relative;
+    border-radius: 2px;
+}
+
+.flipbook .page-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flipbook .page-content img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.flipbook .page.--left {
+    border-right: 0;
+    box-shadow: inset -7px 0 30px -7px rgba(0,0,0,0.2);
+    border-radius: 2px 0 0 2px;
+}
+
+.flipbook .page.--right {
+    border-left: 0;
+    box-shadow: inset 7px 0 30px -7px rgba(0,0,0,0.2);
+    border-radius: 0 2px 2px 0;
+}
+
+/* Cover Page Unique Styles */
+.flipbook .page.cover-page {
+    background: linear-gradient(135deg, var(--button-color), var(--text-color)) !important;
+    color: white;
+}
+
+.cover-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    text-align: center;
+    border: 8px double rgba(255,255,255,0.4) !important;
+    box-sizing: border-box;
+    margin: 10px;
+    height: calc(100% - 20px) !important;
+    width: calc(100% - 20px) !important;
+}
+
+.cover-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    line-height: 1.2;
+}
+
+.cover-subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    font-weight: 300;
+}
+
+.flipbook .page.back-cover {
+    background: linear-gradient(135deg, var(--text-color), var(--button-color)) !important;
+}
