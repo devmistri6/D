@@ -212,7 +212,12 @@ async function initBookGallery() {
     if (images.length === 0) {
         images = Array.isArray(config.flipbookImages) ? config.flipbookImages.slice() : [];
     }
-    if (images.length === 0) return;
+    if (images.length === 0) {
+        console.warn('initBookGallery: no images found');
+        return;
+    }
+
+    console.log('initBookGallery: images list loaded:', images);
 
     // Ensure even number of pages by padding with blank image
     if (images.length % 2 !== 0) images.push('');
@@ -235,14 +240,34 @@ async function initBookGallery() {
         const leftImg = images[idx] || '';
         const rightImg = images[idx + 1] || '';
         // Use <img> elements so missing files are visible in DOM and report loading errors
-        leftEl.innerHTML = leftImg ? `<img src="${leftImg}" alt="Memory" class="book-img">` : '';
-        rightEl.innerHTML = rightImg ? `<img src="${rightImg}" alt="Memory" class="book-img">` : '';
+    leftEl.innerHTML = leftImg ? `<img src="${leftImg}" alt="Memory" class="book-img">` : '';
+    rightEl.innerHTML = rightImg ? `<img src="${rightImg}" alt="Memory" class="book-img">` : '';
         // set flipper faces to simulate turning from right -> next right
         flipFront.innerHTML = rightImg ? `<img src="${rightImg}" alt="Front" class="book-img">` : '';
         const upcoming = images[idx + 2] || '';
         flipBack.innerHTML = upcoming ? `<img src="${upcoming}" alt="Back" class="book-img">` : '';
         // Page pair index (1-based)
         currentCount.textContent = Math.floor(idx / 2) + 1;
+        // Attach load/error handlers for diagnostics
+        monitorVisibleImages();
+    }
+
+    function monitorVisibleImages() {
+        const imgs = Array.from(document.querySelectorAll('.book-img'));
+        imgs.forEach(img => {
+            if (img.__monitored) return;
+            img.__monitored = true;
+            img.addEventListener('load', () => {
+                console.log('book image loaded:', img.src, 'naturalWidth=', img.naturalWidth);
+            });
+            img.addEventListener('error', (e) => {
+                console.error('book image failed to load:', img.src, e);
+                // show a placeholder so user sees a visible box
+                img.style.background = '#f2f2f2';
+                img.style.objectFit = 'contain';
+                img.alt = 'Image failed to load';
+            });
+        });
     }
 
     // Initialize visuals
